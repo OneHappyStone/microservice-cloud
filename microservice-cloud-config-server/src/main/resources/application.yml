@@ -1,0 +1,10 @@
+#指定服务端口为10001
+server:
+  port: 10001
+#指定ConfigServer的git地址
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/OneHappyStone/config-repository.git
