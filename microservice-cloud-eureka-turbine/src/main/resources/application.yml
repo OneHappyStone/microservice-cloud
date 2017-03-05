@@ -1,0 +1,10 @@
+turbine:
+  aggregator:
+    clusterConfig: SERVICE-PROVIDER
+  appConfig: service-provider
+  instanceUrlSuffix: /hystrix.stream
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:10002/eureka/,http://localhost:10003/eureka/

@@ -14,6 +14,7 @@
         <module>microservice-cloud-eureka-service-provider</module>
         <module>microservice-cloud-eureka-service-consumer</module>
         <module>microservice-cloud-eureka-hystrix</module>
+        <module>microservice-cloud-eureka-turbine</module>
     </modules>
 
     <packaging>pom</packaging>

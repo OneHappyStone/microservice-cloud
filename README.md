@@ -1,4 +1,4 @@
-# config-repository
+### config-repository
 This is the config server of spring cloud environment!
 
 ### Config-Server
@@ -18,5 +18,9 @@ This is the config server of spring cloud environment!
 ### Eureka-Server
 当Eureka-Server启动时，会优先根据配置的`spring.config.url`请求Config-Server中的配置属性加载到Spring容器环境中。
 
+
+### Hystrix
+1. Hystrix Dashboard可以成为独立服务来部署。
+2. 而要监控的app中集成Hystrix，服务启动后，需要进行访问后才可以在dashboard展现出(ps:如果服务器尚未执行任何命令来生成度量，hystrix.stream servlet将循环无限地等待度量。 由于它保持循环没有数据，它永远不会尝试写入输出流。）
 
 # 未完，待续。。。。。。。。。。
