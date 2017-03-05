@@ -1,7 +1,51 @@
 spring:
   application:
     name: eureka-turbine
+  cloud:
+      stream:
+        instanceCount: 1
+        instanceIndex: 0
+        kafka:
+          binder:
+            brokers: localhost:9092,localhost:9093,localhost:9094
+            zkNodes: localhost:2181
+            offsetUpdateTimeWindow: 10000
+            requiredAcks: 1
+            minPartitionCount: 1
+            replicationFactor: 1
+
+          bindings:
+            input:
+              consumer:
+                autoCommitOffset: true
+                startOffset: earliest
+                headerMode: raw
+            output:
+              producer:
+                bufferSize: 16384
+                sync: true
+                batchTimeout: 0
+        bindings:
+          input:
+            group: integration
+            consumer:
+              concurrency: 1
+              partitioned: false
+              headerMode: raw
+          output:
+            group: integration
+            producer:
+              partitionCount: 1
+              headerMode: raw
 
 server:
   port: 10007
+
+turbine:
+  aggregator:
+    clusterConfig: SERVICE-PROVIDER
+  appConfig: service-provider
+  instanceUrlSuffix: /hystrix.stream
+  stream:
+    port: 18080
 
