@@ -3,8 +3,11 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:10002/eureka/,http://localhost:10003/eureka/
 
-
-
+#hystrix:
+#  stream:
+#    queue:
+#      send-id: true
+#      destination: my-mircoservice
 
 
 

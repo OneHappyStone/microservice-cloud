@@ -1,6 +1,7 @@
 server:
   port: 10004
 
+
 spring:
   application:
     name: service-provider
@@ -8,40 +9,15 @@ spring:
     config:
       uri: http://localhost:10001
       name: service-provide
-  profiles:
-    active: development
-
     stream:
-      instanceCount: 1
-      instanceIndex: 0
       kafka:
         binder:
-          brokers: localhost:9092,localhost:9093,localhost:9094
-          zkNodes: localhost:2181
-          offsetUpdateTimeWindow: 10000
-          requiredAcks: 1
-          minPartitionCount: 1
-          replicationFactor: 1
-        bindings:
-          input:
-            consumer:
-              autoCommitOffset: true
-              startOffset: earliest
-              headerMode: raw
-          output:
-            producer:
-              bufferSize: 16384
-              sync: true
-              batchTimeout: 0
+          brokers: 172.16.1.248:9092,172.16.1.248:9093,172.16.1.248:9094
+          zkNodes: 172.16.1.248:12181
       bindings:
-        input:
-          group: integration
-          consumer:
-            concurrency: 1
-            partitioned: false
-            headerMode: raw
-        output:
-          group: integration
+        hystrixStreamOutput:
+          destination: my-mircoservice
+          binder: kafka
           producer:
             partitionCount: 1
-            headerMode: raw
+            partitionKeyExpression: id

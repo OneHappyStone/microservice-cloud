@@ -2,3 +2,12 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:10002/eureka/,http://localhost:10003/eureka/
+logging:
+  level: debug
+
+turbine:
+  appConfig: service-provider
+  aggregator:
+    clusterConfig: SERVICE-PROVIDER
+  stream:
+    destination: my-mircoservice
