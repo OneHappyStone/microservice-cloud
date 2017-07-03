@@ -9,4 +9,4 @@ spring:
       uri: http://localhost:10001/
       name: eureka-server
   profiles:
-    active: development
+    active: developmentbba
