@@ -5,10 +5,20 @@ server:
 spring:
   application:
     name: service-provider
+  profiles:
+    active: ${profile.active},ds
   cloud:
-    config:
-      uri: http://localhost:10001
-      name: service-provide
+    zookeeper:
+      enabled: true
+      connectString: testzk1.shishike.com:2181,testzk2.shishike.com:2181,testzk3.shishike.com:2181
+      config:
+        enabled: true
+        root: /configurations/infra/${profile.active}
+        defaultContext: apps
+        profileSeparator: ':'
+#    config:
+#      uri: http://localhost:10001
+#      name: service-provide
     stream:
       kafka:
         binder:

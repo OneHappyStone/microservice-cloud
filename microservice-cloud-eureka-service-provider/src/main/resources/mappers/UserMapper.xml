@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onehappystone.eureka.service.dao">
+
+    <resultMap id="userResultMap" type="c">
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="status_flag" property="statusFlag" jdbcType="TINYINT"/>
+        <result column="server_create_time" property="serverCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="server_update_time" property="serverUpdateTime" jdbcType="TIMESTAMP"/>
+        <result column="account" property="account" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="salt" property="salt" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="column">
+        id,account,password,name,email,status_flag,server_create_time,server_update_time,salt
+    </sql>
+
+    <select id="selectById" resultMap="userResultMap">
+        SELECT <include refid="column"/> FROM infra_user WHERE id = #{id}
+    </select>
+    <select id="selectByEntity" parameterType="com.onehappystone.eureka.service.entity.User" resultMap="userResultMap">
+        SELECT <include refid="column"/> FROM infra_user WHERE status_flag=1
+        <if test="id != null">
+            AND id = #{id}
+        </if>
+        <if test="account != null">
+            AND account = #{account}
+        </if>
+        <if test="password != null">
+            AND password = #{password}
+        </if>
+        <if test="salt != null">
+            AND salt = #{salt}
+        </if>
+        <if test="name != null">
+            AND name = #{name}
+        </if>
+        <if test="serverCreateTime != null">
+            AND server_create_time = #{serverCreateTime}
+        </if>
+        <if test="serverUpdateTime != null">
+            AND server_update_time = #{serverUpdateTime}
+        </if>
+    </select>
+    <select id="selectByPage" parameterType="com.onehappystone.eureka.service.entity.User" resultMap="userResultMap">
+        SELECT <include refid="column"/> FROM infra_user
+        <where>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="account != null and account != ''">
+                AND account LIKE CONCAT('%',#{account},'%') 
+            </if>
+            <if test="password != null">
+                AND password = #{password}
+            </if>
+            <if test="salt != null">
+                AND salt = #{salt}
+            </if>
+            <if test="name != null">
+                AND name = #{name}
+            </if>
+            <if test="serverCreateTime != null">
+                AND server_create_time = #{serverCreateTime}
+            </if>
+            <if test="serverUpdateTime != null">
+                AND server_update_time = #{serverUpdateTime}
+            </if>
+        </where>
+    </select>
+    <!-- 删除单条记录 -->
+    <delete id="deleteById" parameterType="long">
+	<![CDATA[
+		delete from infra_user where id=#{id}
+	]]>	
+	</delete>
+	<!-- 删除多条记录 -->
+	<delete id="deleteByIds" parameterType="java.util.List">
+		delete from infra_user where id in
+		<foreach collection="list" open="(" close=")" separator="," item="id">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterType="com.onehappystone.eureka.service.entity.User">
+        UPDATE infra_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="account != null">
+                account = #{account},
+            </if>
+            <if test="salt != null">
+                salt = #{salt},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="statusFlag != null">
+                status_flag = #{status_flag}
+            </if>
+        </trim>
+        WHERE id = #{id}
+    </update>
+</mapper>

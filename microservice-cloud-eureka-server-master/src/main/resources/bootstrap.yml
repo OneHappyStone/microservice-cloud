@@ -4,9 +4,17 @@ server:
 spring:
   application:
     name: eureka-server
-  cloud:
-    config:
-      uri: http://localhost:10001/
-      name: eureka-server
   profiles:
-    active: development
+      active: #{profile.active}
+  cloud:
+    zookeeper:
+      enabled: true
+      connectString: testzk1.shishike.com:2181,testzk2.shishike.com:2181,testzk3.shishike.com:2181
+      config:
+        enabled: true
+        root: /configurations/infra/#{profile.active}
+        defaultContext: apps
+        profileSeparator: ':'
+#    config:
+#      uri: http://localhost:10001/
+#      name: eureka-server

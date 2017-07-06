@@ -15,6 +15,7 @@
         <module>microservice-cloud-eureka-service-consumer</module>
         <module>microservice-cloud-eureka-hystrix</module>
         <module>microservice-cloud-eureka-turbine</module>
+        <module>microservice-cloud-commons</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -31,7 +32,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <guava.version>21.0</guava.version>
+        <guava.version>18.0</guava.version>
         <okhttp.version>3.6.0</okhttp.version>
         <jackson.version>2.8.7</jackson.version>
         <druid.version>1.0.28</druid.version>
@@ -39,6 +40,7 @@
         <mybatis.spring.boot.version>1.2.0</mybatis.spring.boot.version>
         <collections4.version>4.0</collections4.version>
         <lombok.version>1.16.8</lombok.version>
+        <spring.cloud.version>Dalston.RELEASE</spring.cloud.version>
         <docker.image.prefix>happystone</docker.image.prefix>
     </properties>
 
@@ -75,6 +77,23 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <encoding>utf-8</encoding>
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
     <dependencyManagement>
@@ -82,7 +101,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Dalston.RELEASE</version>
+                <version>${spring.cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -163,4 +182,22 @@
             <url>http://maven.aliyun.com/nexus/content/groups/public</url>
         </pluginRepository>
     </pluginRepositories>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profile.active>dev</profile.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <profile.active>test</profile.active>
+            </properties>
+        </profile>
+    </profiles>
 </project>

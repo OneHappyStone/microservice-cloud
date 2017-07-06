@@ -2,6 +2,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:10002/eureka/,http://localhost:10003/eureka/
+mybatis:
+  typeAliasesPackage: com.onehappystone.eureka.service.entity
+  mapperLocations: classpath:/mappers/*.xml
 
 #hystrix:
 #  stream:

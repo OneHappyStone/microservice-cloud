@@ -10,7 +10,7 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 /**
  * Created by happy on 2017/3/3.
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.onehappystone")
 @EnableEurekaClient
 @EnableHystrix
 public class Application {
