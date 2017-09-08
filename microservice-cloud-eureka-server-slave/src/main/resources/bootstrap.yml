@@ -9,10 +9,10 @@ spring:
   cloud:
     zookeeper:
       enabled: true
-      connectString: testzk1.shishike.com:2181,testzk2.shishike.com:2181,testzk3.shishike.com:2181
+      connectString: localhost:2181
       config:
         enabled: true
-        root: /configurations/infra/#{profile.active}
+        root: /configurations/my/#{profile.active}
         defaultContext: apps
         profileSeparator: ':'
 #    config:
